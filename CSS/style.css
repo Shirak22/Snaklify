@@ -1,0 +1,47 @@
+@font-face {
+    font-family: Coiny;
+    src: url('../assets/fonts/Coiny/Coiny-Regular.ttf');
+  }  
+
+:root{
+    /* colors  */
+    --background-primary-color: #141B22; 
+    --background-secondary-color: #1E2831; 
+    --background-canvas-color: #171F26; 
+    --text-primary-color: #FFC188; 
+    --text-secondary-color: #FF701F; 
+    --text-important-color: #FF2828; 
+
+    /* text sizes  */
+    /* coiny text family  */
+    
+     --text-huge-size: 64px ;  /*logo size  */
+     --text-medium-size: 32px ; /*score size  */
+     --text-xmedium-size: 24px ; /*score number size  */
+     --text-small-size: 20px ; /*level size  */
+     --text-xsmall-size: 16px ; /*score size  */
+
+     /* box sizes  */
+     --project-width: 1440px; 
+     --platform-width: 830px; 
+     --platform-height: 654px; 
+     --game_canvas-width: 400px; 
+     --game_canvas-height: 600px; 
+
+     /* Border radius color  */
+
+     --border-large : 20px; 
+     --border-small: 12px; 
+     --border-color-danger:#FF2828; ; 
+     --border-color-primary:  #FFC188;
+}
+
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Coiny';
+    box-sizing: border-box;
+}
+
+
