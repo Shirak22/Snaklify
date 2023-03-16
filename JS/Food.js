@@ -2,8 +2,8 @@ import {random} from './functions.js'
 import {canvas,ctx,res,init} from './init.js'
 
 class Food{
-    constructor(settings){
-        this.settings = settings ;
+    constructor(){
+        this.settings;
         this.x = Math.floor(random(0,init.w)); 
         this.y = Math.floor(random(0,init.h));
         this.food = [
@@ -12,21 +12,24 @@ class Food{
                 points: '22',
                 danger:'0',
                 x: this.x,
-                y: this.y
+                y: this.y,
+                color:"#07f"
             },
             {
                 type: 'Fruits',
                 points: '10',
                 danger:'0',
                 x: this.x,
-                y: this.y
+                y: this.y,
+                color:"#a25"
             },
             {
                 type: 'Olive',
                 points: '53',
                 danger:'0',
                 x: this.x,
-                y: this.y
+                y: this.y,
+                color:"#0f7"
             }
 
         ];
@@ -40,11 +43,8 @@ class Food{
        
     }
 
-    draw(){
-        ctx.fillRect(this.x *res, this.y *res, res,res); 
-    }
 
-
+    
 
 }
 

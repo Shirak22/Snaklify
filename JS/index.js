@@ -23,20 +23,32 @@ import {Food} from './Food.js'
         goal: 15
     }
     
-let bodylength = 5; 
+let bodylength = 1; 
 let bodyParts = []; 
 let count = 0;
-let foodPos; 
+let food = new Food(); 
+//it return object of the food info like ( type, points,danger,x,y)
+let foodPoz = food.generate(); 
+let snakeHead = new Cell(head,init,res);
 
-let snakeHead = new Cell(head,res); 
+
+//the game loop and animation 
 function loop(){ 
+    //drawing the game field with borders 
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.strokeStyle = '#000';
     ctx.strokeRect(0,0,canvas.width,canvas.height);
+
+    
     let speed = 1/level.speed; 
     if(count > speed){ //speed control 
-      
+       
+        //collision detection 
+       
+
+
         bodyParts.push(new Body(head.x,head.y, '#FFC188',ctx,res)); 
+        //limit the body parts number to the body length , 
         while(bodyParts.length > bodylength){
             bodyParts.shift();
         }
@@ -44,12 +56,19 @@ function loop(){
         snakeHead.update();
         count = 0; 
     }
-
+    if(head.x === foodPoz.x*res && head.y === foodPoz.y*res ){
+        console.log('detect');
+        bodylength++;
+        food = new Food();
+        foodPoz = food.generate();
+    }
     bodyParts.forEach(part =>{
         part.draw();
      });
+    drawFood(foodPoz);
     snakeHead.draw();
     count++; 
+
     window.requestAnimationFrame(loop); 
     
 }
@@ -59,7 +78,8 @@ window.requestAnimationFrame(loop);
 Control(head);
 
 
-
-
-
-
+function drawFood(foodpos){
+    ctx.beginPath();
+    ctx.fillStyle = foodpos.color;
+    ctx.fillRect(foodpos.x *res, foodpos.y *res, res,res);
+}

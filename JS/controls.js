@@ -6,7 +6,6 @@ export default function Control(head){
         if(head.vy === 1 ) return; 
         head.vy = -1; 
         head.vx = 0; 
-  
        
         
       }else if(e.keyCode == 37){

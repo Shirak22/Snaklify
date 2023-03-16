@@ -34,8 +34,11 @@ class Cell {
     }
     
     update(){
+        //the automated move afte the vx vy value from the control side 
         this.snake.x += (this.snake.vx * this.size);
         this.snake.y += (this.snake.vy * this.size);
+
+        //Snake rules and conditions (Boundries)
         if (this.snake.x >= this.init.w * this.size) {
             this.snake.x = 0;
         } else if (this.snake.x < 0) {
