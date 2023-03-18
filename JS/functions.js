@@ -5,5 +5,17 @@
     return Math.random()*(max - min) + min ; 
 }
 
+function drawFood(foodpos,ctx,res){
+    ctx.beginPath();
+    ctx.fillStyle = foodpos.color;
+    ctx.fillRect(foodpos.x *res, foodpos.y *res, res,res);
+}
 
-export {random}
+
+function updateScoreUI(score,tailLength){
+    let scoreDom = document.querySelector('[data-score]');
+    let tailDom = document.querySelector('[data-tailLength]');
+     scoreDom.textContent = score;
+     tailDom.textContent = tailLength; 
+}
+export {random,drawFood,updateScoreUI}

@@ -37,10 +37,19 @@ class Food{
     }
 
     generate(){
-       let randomFood = Math.round(random(0,2));
+       let randomNumber = Math.round(random(0,100));
+       let randomFood; 
+       // 60% chance to generate Fruits food and 30% blueberrys and 10% Olives 
+       if(randomNumber <= 60){
+        randomFood = 1;//Blueberrys 
+       }else if(randomNumber > 60 && randomNumber <= 90){
+        randomFood = 0;//Fruits
+       }else{
+        randomFood = 2;//Olive
+       }
+
        this.settings = this.food[randomFood];
        return this.food[randomFood]; 
-       
     }
 
 
