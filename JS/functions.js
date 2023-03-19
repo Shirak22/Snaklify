@@ -18,4 +18,24 @@ function updateScoreUI(score,tailLength){
      scoreDom.textContent = score;
      tailDom.textContent = tailLength; 
 }
-export {random,drawFood,updateScoreUI}
+ class Timer {
+    constructor(){
+        this.previousTime = Date.now();
+    }
+
+    timeSpent(){
+        let now = Math.floor((Date.now() - this.previousTime)/1000); 
+        return now; 
+    }
+
+
+    countDown(timeLimit){
+        let result;
+        this.timeLimit = timeLimit;
+        let now = Math.floor((Date.now() - this.previousTime)/1000); 
+        let count = this.timeLimit - now ; 
+        result = count > 0 ? count : null ;
+            return result ; 
+    }
+ }
+export {Timer,random,drawFood,updateScoreUI}

@@ -2,37 +2,72 @@ import {random} from './functions.js'
 import {canvas,ctx,res,init} from './init.js'
 
 class Food{
-    constructor(){
+    constructor(foodType=true){
         this.settings;
+        this.foodType = foodType; 
+        this.food; 
         this.x = Math.floor(random(0,init.w)); 
         this.y = Math.floor(random(0,init.h));
-        this.food = [
-            {
-                type: 'Blueberrys',
-                points: '22',
-                danger:'0',
-                x: this.x,
-                y: this.y,
-                color:"#07f"
-            },
-            {
-                type: 'Fruits',
-                points: '10',
-                danger:'0',
-                x: this.x,
-                y: this.y,
-                color:"#a25"
-            },
-            {
-                type: 'Olive',
-                points: '53',
-                danger:'0',
-                x: this.x,
-                y: this.y,
-                color:"#0f7"
-            }
+        if(this.foodType === true){
+            this.food = [
+                {
+                    type: 'Blueberrys',
+                    points: '22',
+                    danger:'0',
+                    x: this.x,
+                    y: this.y,
+                    color:"#07f"
+                },
+                {
+                    type: 'Fruits',
+                    points: '10',
+                    danger:'0',
+                    x: this.x,
+                    y: this.y,
+                    color:"#a25"
+                },
+                {
+                    type: 'Olive',
+                    points: '53',
+                    danger:'0',
+                    x: this.x,
+                    y: this.y,
+                    color:"#0f7"
+                }
+    
+            ];
+        }else {
+            this.food = [
+                {
+                    type: 'Bomb',
+                    points: '0',
+                    danger:'25',
+                    x: this.x,
+                    y: this.y,
+                    color:"#000"
+                },
+                {
+                    type: 'cracker',
+                    points: '0',
+                    danger:'12',
+                    x: this.x,
+                    y: this.y,
+                    color:"#511"
+                },
+                {
+                    type: 'radio',
+                    points: '0',
+                    danger:'60',
+                    x: this.x,
+                    y: this.y,
+                    color:"#723"
+                }
+    
+            ];
+        }
+       
 
-        ];
+       
 
     }
 
@@ -43,7 +78,7 @@ class Food{
        if(randomNumber <= 60){
         randomFood = 1;//Blueberrys 
        }else if(randomNumber > 60 && randomNumber <= 90){
-        randomFood = 0;//Fruits
+        randomFood = 0;//Blueberrys
        }else{
         randomFood = 2;//Olive
        }

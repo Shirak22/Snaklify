@@ -1,4 +1,4 @@
-import {random,drawFood,updateScoreUI} from './functions.js'
+import {Timer,random,drawFood,updateScoreUI} from './functions.js'
 import {canvas,ctx,res,init} from './init.js'
 import Control from './controls.js'
 import {Body,Cell} from './snake.js'
@@ -28,8 +28,15 @@ let bodyParts = [];
 let count = 0;
 let food = new Food(); 
 //it return object of the food info like ( type, points,danger,x,y)
-let foodPoz = food.generate(); 
+let foodPoz = food.generate();
+
+
+//it return object of the food info like ( type, points,danger,x,y)
+let badFood = new Food(false); 
+let badFoodPoz  = badFood.generate();
+let badFoodTimer = new Timer();
 let snakeHead = new Cell(head,init,res);
+let timer = new Timer(); 
 
 
 //the game loop and animation 
@@ -39,14 +46,27 @@ function loop(){
     ctx.strokeStyle = '#000';
     ctx.strokeRect(0,0,canvas.width,canvas.height);
 
+ //Making food every 1 sec 
+    if(badFoodTimer.timeSpent() >= 2){
+        badFoodTimer = new Timer();
+         badFood = new Food(false); 
+        badFoodPoz  = badFood.generate();
+    }
+
+   //Making food every 5 sec 
+    if(timer.timeSpent() >= 5){
+        timer = new Timer();
+        food = new Food();
+        foodPoz = food.generate();
+    }
     
+
+   
+
     let speed = 1/level.speed; 
     if(count > speed){ //speed control 
        
         //collision detection 
-       
-
-
         bodyParts.push(new Body(head.x,head.y, '#FFC188',ctx,res)); 
         //limit the body parts number to the body length , 
         while(bodyParts.length > bodylength){
@@ -56,13 +76,16 @@ function loop(){
         count = 0; 
     }
 
+  
+
     //food and head collision 
     if(head.x === foodPoz.x*res && head.y === foodPoz.y*res ){
         level.score += (foodPoz.points - foodPoz.danger);
-        console.log('detect');
+        timer = new Timer(); 
         bodylength++;
         food = new Food();
         foodPoz = food.generate();
+
 
         for (let i = 0; i < bodyParts.length; i++) {
             const part = bodyParts[i];
@@ -70,7 +93,27 @@ function loop(){
                 food = new Food();
                 foodPoz = food.generate();
             }
-            
+
+        }
+       
+        
+    }
+    //bad food and head collision 
+    if(head.x === badFoodPoz.x*res && head.y === badFoodPoz.y*res ){
+        level.score += (badFoodPoz.points - badFoodPoz.danger);
+        timer = new Timer(); 
+        bodylength++;
+        badFood = new Food();
+        badFoodPoz = food.generate();
+
+
+        for (let i = 0; i < bodyParts.length; i++) {
+            const part = bodyParts[i];
+            if(badFoodPoz.x*res === part.x && badFoodPoz.y*res === part.y ){
+                badFood = new Food();
+                badFoodPoz = food.generate();
+            }
+
         }
        
         
@@ -88,11 +131,16 @@ function loop(){
             
         }
      });
-    
-    updateScoreUI(level.score,bodylength);
-
      
+     //game over on negative score 
+    if(level.score  < 0 ){
+        level.score = 0;
+        gameOverScreen = true;
+    }
+
+    updateScoreUI(level.score,bodylength);
     drawFood(foodPoz,ctx,res);
+    drawFood(badFoodPoz,ctx,res);
     snakeHead.draw();
     count++; 
 if(!gameOverScreen){
@@ -101,6 +149,7 @@ if(!gameOverScreen){
     
     
 }
+
 
 
 window.requestAnimationFrame(loop); 
