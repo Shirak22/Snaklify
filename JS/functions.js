@@ -70,5 +70,55 @@ function updateScoreUI(score,tailLength,speed){
  }
 
 
+function gameOverScreenRender(storedData){
+    return `
+    <div class="gameOverScreen-wrapper">
+        <div class="gameOverScreen-level_info">
+            <p>speed: <span>X${storedData.speed}</span></p>
+            <p>Tail length: <span>${storedData.tail}</span> </p>
+        </div>
+        
+        <article class="gameOverScreen-score">
+                <h3 class="h3-header">SCORE</h3>
+                <h2 class="h2-header">${storedData.score}</h2>
+                <p>total time <span>${storedData.time}</span></p>
+        </article>
 
-export {Timer,random,drawFood,updateScoreUI}
+        <article class="gameOverScreen-Headline">
+            <h1 class="h1-header">Game Over</h1>
+        </article>
+
+        <article class="gameOverScreen-Playagain">
+            <p>Play again! </p>
+            <img src="./Assets/Svg/EnterKey.svg" alt="EnterKey">
+        </article>
+    </div>
+
+`
+}
+
+function pauseScreenRender(score){
+return `
+    <div class="gameOverScreen-wrapper">
+                
+                    
+        <article class="gameOverScreen-score">
+                <h3 class="h3-header">SCORE</h3>
+                <h2 class="h2-header">${score}</h2>
+        </article>
+
+        <article class="gameOverScreen-Headline">
+            <h1 class="h1-header">Pause!</h1>
+        </article>
+
+        <article class="gameOverScreen-Playagain">
+            <p>Continue! </p>
+            <img src="./Assets/Svg/EnterKey.svg" alt="EnterKey">
+        </article>
+    </div>
+
+`
+}
+
+
+export {Timer,random,drawFood,updateScoreUI,gameOverScreenRender,pauseScreenRender}

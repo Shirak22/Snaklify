@@ -1,4 +1,4 @@
-import {Timer,random,drawFood,updateScoreUI} from './functions.js'
+import {Timer,drawFood,updateScoreUI,gameOverScreenRender,pauseScreenRender} from './functions.js'
 import {canvas,ctx,res,init} from './init.js'
 import Control from './controls.js'
 import {Body,Cell} from './snake.js'
@@ -6,6 +6,12 @@ import {Food} from './Food.js'
 
 //----------------------------------------------------
 //Global Variables 
+    let storedData = {
+        speed:2,
+        tail:45,
+        score:50485,
+        time:'10:00'
+    }
     let head = {
         x: init.centerX,
         y:init.centerY,
@@ -40,7 +46,8 @@ let timer = new Timer();
 
 
 //the game loop and animation 
-function loop(){ 
+function loop(){
+    let total_time = totalTime.timeSpent();
     if(!gameOverScreen){
     //drawing the game field with borders 
     ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -136,6 +143,7 @@ function loop(){
     }
 
    
+    //game over on head body collision
 
     bodyParts.forEach(part =>{
         part.draw();
@@ -143,7 +151,19 @@ function loop(){
             if(head.vx !== 0 || head.vy !== 0){
                 console.log('Body Collision');
                 gameOverScreen = true;
-                gameOverScreenElement.innerHTML = gameOverScreenRender(); 
+                
+                let LSstoredScore = localStorage.getItem('scoreData') === null ? []:JSON.parse(localStorage.getItem('scoreData'));
+                let storedScore = [...LSstoredScore];
+                let currentStoredDataScore = {
+                    speed:(level.speed/.1).toFixed(1),
+                    tail:bodylength,
+                    score:level.score,
+                    time:total_time.toString()
+                }; 
+                storedScore.push(currentStoredDataScore); 
+                
+                localStorage.setItem('scoreData',JSON.stringify(storedScore));
+                gameOverScreenElement.innerHTML = gameOverScreenRender(currentStoredDataScore); 
                 gameOverScreenElement.classList.add('gameOver-show');
             }
             
@@ -161,7 +181,7 @@ function loop(){
     drawFood(badFoodPoz,ctx,res);
     snakeHead.draw();
     count++; 
-    timeEl.textContent = totalTime.timeSpent();
+    timeEl.textContent = total_time;
     if(!pause){
         
         window.requestAnimationFrame(loop); 
@@ -194,7 +214,7 @@ window.addEventListener('keyup',(e)=>{
          bodylength = 1;
          bodyParts = [];
          count = 0;
-
+         totalTime = new Timer();
         snakeHead = new Cell(head,init,res);
         window.requestAnimationFrame(loop);
         Control(head);
@@ -202,29 +222,8 @@ window.addEventListener('keyup',(e)=>{
 
     }else if (e.key == 'Enter' && gameOverScreen == false){
         pause = !pause;
-        gameOverScreenElement.innerHTML = `
-            
-            <div class="gameOverScreen-wrapper">
-            
-                
-                <article class="gameOverScreen-score">
-                        <h3 class="h3-header">SCORE</h3>
-                        <h2 class="h2-header">${level.score}</h2>
-                </article>
-
-                <article class="gameOverScreen-Headline">
-                    <h1 class="h1-header">Pause!</h1>
-                </article>
-
-                <article class="gameOverScreen-Playagain">
-                    <p>Continue! </p>
-                    <img src="./Assets/Svg/EnterKey.svg" alt="EnterKey">
-                </article>
-            </div>
-
-        `; 
+        gameOverScreenElement.innerHTML = pauseScreenRender(level.score); 
         gameOverScreenElement.classList.toggle('gameOver-show');
-
         window.requestAnimationFrame(loop); 
         
     }
@@ -232,31 +231,4 @@ window.addEventListener('keyup',(e)=>{
 window.requestAnimationFrame(loop);
 Control(head);
 
-
  
-function gameOverScreenRender(){
-        return `
-        <div class="gameOverScreen-wrapper">
-            <div class="gameOverScreen-level_info">
-                <p>speed: <span>X1</span> </p>
-                <p>Tail length: <span>42</span> </p>
-            </div>
-            
-            <article class="gameOverScreen-score">
-                    <h3 class="h3-header">SCORE</h3>
-                    <h2 class="h2-header">150236</h2>
-                    <p>total time <span>10:23</span> </p>
-            </article>
-
-            <article class="gameOverScreen-Headline">
-                <h1 class="h1-header">Game Over</h1>
-            </article>
-
-            <article class="gameOverScreen-Playagain">
-                <p>Play again! </p>
-                <img src="./Assets/Svg/EnterKey.svg" alt="EnterKey">
-            </article>
-        </div>
-    
-    `
-}
