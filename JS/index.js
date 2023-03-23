@@ -29,7 +29,7 @@ let food = new Food();
 //it return object of the food info like ( type, points,danger,x,y)
 let foodPoz = food.generate();
 let timeEl = document.querySelector('[data-time]');
-
+let gameOverScreenElement = document.querySelector('[data-gameOver]');
 let totalTime = new Timer();
 
 //it return object of the food info like ( type, points,danger,x,y)
@@ -96,10 +96,11 @@ function loop(){
             }
 
         }
-       
-        
+ 
     }
 
+
+    //Speed Rules by BodyLength 
      if(15 <= bodylength && bodylength < 30 ){
         level.speed = .15;
      }else if(30 <= bodylength && bodylength < 45 ){
@@ -141,7 +142,9 @@ function loop(){
         if(head.x === part.x && head.y === part.y && bodylength >= 10 ){
             if(head.vx !== 0 || head.vy !== 0){
                 console.log('Body Collision');
-                gameOverScreen = true; 
+                gameOverScreen = true;
+                gameOverScreenElement.innerHTML = gameOverScreenRender(); 
+                gameOverScreenElement.classList.add('gameOver-show');
             }
             
         }
@@ -173,6 +176,7 @@ window.addEventListener('keyup',(e)=>{
     if (e.key == 'Enter' && gameOverScreen == true) {
         console.log(e.keyCode, e.key);
         gameOverScreen = false;
+        gameOverScreenElement.classList.remove('gameOver-show');
        
         head = {
             x: init.centerX,
@@ -194,8 +198,33 @@ window.addEventListener('keyup',(e)=>{
         snakeHead = new Cell(head,init,res);
         window.requestAnimationFrame(loop);
         Control(head);
+
+
     }else if (e.key == 'Enter' && gameOverScreen == false){
         pause = !pause;
+        gameOverScreenElement.innerHTML = `
+            
+            <div class="gameOverScreen-wrapper">
+            
+                
+                <article class="gameOverScreen-score">
+                        <h3 class="h3-header">SCORE</h3>
+                        <h2 class="h2-header">${level.score}</h2>
+                </article>
+
+                <article class="gameOverScreen-Headline">
+                    <h1 class="h1-header">Pause!</h1>
+                </article>
+
+                <article class="gameOverScreen-Playagain">
+                    <p>Continue! </p>
+                    <img src="./Assets/Svg/EnterKey.svg" alt="EnterKey">
+                </article>
+            </div>
+
+        `; 
+        gameOverScreenElement.classList.toggle('gameOver-show');
+
         window.requestAnimationFrame(loop); 
         
     }
@@ -205,3 +234,29 @@ Control(head);
 
 
  
+function gameOverScreenRender(){
+        return `
+        <div class="gameOverScreen-wrapper">
+            <div class="gameOverScreen-level_info">
+                <p>speed: <span>X1</span> </p>
+                <p>Tail length: <span>42</span> </p>
+            </div>
+            
+            <article class="gameOverScreen-score">
+                    <h3 class="h3-header">SCORE</h3>
+                    <h2 class="h2-header">150236</h2>
+                    <p>total time <span>10:23</span> </p>
+            </article>
+
+            <article class="gameOverScreen-Headline">
+                <h1 class="h1-header">Game Over</h1>
+            </article>
+
+            <article class="gameOverScreen-Playagain">
+                <p>Play again! </p>
+                <img src="./Assets/Svg/EnterKey.svg" alt="EnterKey">
+            </article>
+        </div>
+    
+    `
+}

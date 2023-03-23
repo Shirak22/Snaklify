@@ -26,7 +26,10 @@
      --platform-width: 830px; 
      --platform-height: 654px; 
      --game_canvas-width: 400px; 
-     --game_canvas-height: 600px; 
+     --game_canvas-height: 600px;
+     --gameOverScreen-height: 455px; 
+     --gameOverScreen-width: 645px; 
+
 
      /* Border radius color  */
 
@@ -238,5 +241,78 @@ body{
     margin-right: 16px;
 }
 
+.gameOverScreen {
+    
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: rgba(0,0,0,.7);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
 
+}
 
+.gameOverScreen-wrapper{
+    position: relative;
+    width: var(--gameOverScreen-width);
+    height:var(--gameOverScreen-height);
+    background-color: #fff;
+    border-radius: 16px;
+    background: var(--background-secondary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 3rem;
+    align-items: center;
+}
+
+.gameOverScreen-score{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.gameOverScreen-score .h3-header{
+    font-size: 2rem;
+}
+.gameOverScreen-score .h2-header{
+    font-size: 3rem;
+}
+.gameOverScreen-score p{
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: var(--text-secondary-color);
+}
+.gameOverScreen-Headline .h1-header{
+    color: var(--border-color-primary);
+}
+.gameOverScreen-Playagain{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.gameOverScreen-Playagain p {
+    color: var(--text-secondary-color);
+    text-align: center;
+}
+
+.gameOverScreen-level_info{
+    position: absolute;
+    top: 0;
+    left: 0;    
+    margin: 2rem;
+    color: var(--border-color-primary);
+}
+.gameOverScreen-level_info span{
+    color: var(--text-secondary-color);
+}
+.gameOver-show{
+    display: flex;
+}
