@@ -21,6 +21,7 @@ import {Food} from './Food.js'
     }
     let snakeHead = new Cell(head,init,res);
 let gameOverScreen = false;
+let pause = false; 
 let bodylength = 9; 
 let bodyParts = []; 
 let count = 0;
@@ -40,6 +41,7 @@ let timer = new Timer();
 
 //the game loop and animation 
 function loop(){ 
+    if(!gameOverScreen){
     //drawing the game field with borders 
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.strokeStyle = '#000';
@@ -142,12 +144,16 @@ function loop(){
     drawFood(badFoodPoz,ctx,res);
     snakeHead.draw();
     count++; 
-if(!gameOverScreen){
+
     timeEl.textContent = totalTime.timeSpent();
-    window.requestAnimationFrame(loop); 
+    if(!pause){
+        window.requestAnimationFrame(loop); 
+    }
+    
 }
 }
 
+//Enter key functionality --> Pause and restart on gameoverscreen
 window.addEventListener('keyup',(e)=>{
     e.preventDefault();
     if (e.key == 'Enter' && gameOverScreen == true) {
@@ -169,14 +175,17 @@ window.addEventListener('keyup',(e)=>{
         }
          bodylength = 1;
          bodyParts = [];
-          count = 0;
-          
-       
+         count = 0;
+
         snakeHead = new Cell(head,init,res);
         window.requestAnimationFrame(loop);
+        Control(head);
+    }else if (e.key == 'Enter' && gameOverScreen == false){
+        pause = !pause;
+        window.requestAnimationFrame(loop); 
+        
     }
 }); 
-
 window.requestAnimationFrame(loop); 
 Control(head);
 
