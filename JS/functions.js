@@ -5,10 +5,38 @@
     return Math.random()*(max - min) + min ; 
 }
 
-function drawFood(foodpos,ctx,res){
-    ctx.beginPath();
-    ctx.fillStyle = foodpos.color;
-    ctx.fillRect(foodpos.x *res, foodpos.y *res, res,res);
+function drawFood(foodpos, ctx, res) {
+    const myImage = new Image();
+    switch (foodpos.type) {
+        case 'Blueberrys':
+            myImage.src = 'Assets/Food/blueberries.png';
+            break;
+        case 'Olive':
+            myImage.src = 'Assets/Food/olive.png';
+            break;
+        case 'carrot':
+            myImage.src = 'Assets/Food/carrot.png';
+            break;
+        case 'grapes':
+            myImage.src = 'Assets/Food/grapes.png';
+            break;
+        case 'watermelon':
+            myImage.src = 'Assets/Food/watermelon.png';
+            break;
+        case 'Bomb':
+            myImage.src = 'Assets/Poisen/bomb.png';
+            break;
+        case 'cracker':
+            myImage.src = 'Assets/Poisen/firecracker.png';
+            break;
+        case 'radio':
+            myImage.src = 'Assets/Poisen/radioactive.png';
+            break;
+    }
+    ctx.drawImage(myImage, foodpos.x * res, foodpos.y * res, res * 1.5, res * 1.5);
+    // ctx.beginPath();
+    // ctx.fillStyle = foodpos.color;
+    // ctx.fillRect(foodpos.x *res, foodpos.y *res, res,res);
 }
 
 

@@ -16,26 +16,25 @@ import {Food} from './Food.js'
     }
 
     let level = {
-        level: 1,
-        speed: .1,
+        speed: .15,
         score: 0,
-        time: 2,
-        goal: 15
     }
+    let snakeHead = new Cell(head,init,res);
 let gameOverScreen = false;
-let bodylength = 1; 
+let bodylength = 9; 
 let bodyParts = []; 
 let count = 0;
 let food = new Food(); 
 //it return object of the food info like ( type, points,danger,x,y)
 let foodPoz = food.generate();
-
+let timeEl = document.querySelector('[data-time]'); 
+let totalTime = new Timer();
 
 //it return object of the food info like ( type, points,danger,x,y)
 let badFood = new Food(false); 
 let badFoodPoz  = badFood.generate();
 let badFoodTimer = new Timer();
-let snakeHead = new Cell(head,init,res);
+
 let timer = new Timer(); 
 
 
@@ -47,9 +46,9 @@ function loop(){
     ctx.strokeRect(0,0,canvas.width,canvas.height);
 
  //Making food every 1 sec 
-    if(badFoodTimer.timeSpent() >= 2){
+    if(badFoodTimer.timeSpent() >= 1){
         badFoodTimer = new Timer();
-         badFood = new Food(false); 
+        badFood = new Food(false); 
         badFoodPoz  = badFood.generate();
     }
 
@@ -144,13 +143,39 @@ function loop(){
     snakeHead.draw();
     count++; 
 if(!gameOverScreen){
+    timeEl.textContent = totalTime.timeSpent();
     window.requestAnimationFrame(loop); 
 }
-    
-    
 }
 
+window.addEventListener('keyup',(e)=>{
+    e.preventDefault();
+    if (e.key == 'Enter' && gameOverScreen == true) {
+        console.log(e.keyCode, e.key);
+        gameOverScreen = false;
+       
+        head = {
+            x: init.centerX,
+            y: init.centerY,
+            vx: 0,
+            vy: 0,
+            ctx: ctx,
+            color: '#FF701F'
+        }
 
+        level = {
+            speed: .15,
+            score: 0,
+        }
+         bodylength = 1;
+         bodyParts = [];
+          count = 0;
+          
+       
+        snakeHead = new Cell(head,init,res);
+        window.requestAnimationFrame(loop);
+    }
+}); 
 
 window.requestAnimationFrame(loop); 
 Control(head);
