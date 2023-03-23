@@ -40,11 +40,13 @@ function drawFood(foodpos, ctx, res) {
 }
 
 
-function updateScoreUI(score,tailLength){
+function updateScoreUI(score,tailLength,speed){
     let scoreDom = document.querySelector('[data-score]');
     let tailDom = document.querySelector('[data-tailLength]');
+    let speedRate = document.querySelector('[data-speedRate]'); 
      scoreDom.textContent = score;
-     tailDom.textContent = tailLength; 
+     tailDom.textContent = tailLength;
+     speedRate.textContent = `X`+ (speed/.1).toFixed(1); 
 }
  class Timer {
     constructor(){
@@ -66,4 +68,7 @@ function updateScoreUI(score,tailLength){
             return result ; 
     }
  }
+
+
+
 export {Timer,random,drawFood,updateScoreUI}
