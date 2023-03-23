@@ -6,12 +6,7 @@ import {Food} from './Food.js'
 
 //----------------------------------------------------
 //Global Variables 
-    let storedData = {
-        speed:2,
-        tail:45,
-        score:50485,
-        time:'10:00'
-    }
+ 
     let head = {
         x: init.centerX,
         y:init.centerY,
@@ -25,7 +20,9 @@ import {Food} from './Food.js'
         speed: .1,
         score: 0,
     }
-    let snakeHead = new Cell(head,init,res);
+
+    let previous = previousScore();
+let snakeHead = new Cell(head,init,res);
 let gameOverScreen = false;
 let pause = false; 
 let bodylength = 9; 
@@ -228,7 +225,14 @@ window.addEventListener('keyup',(e)=>{
         
     }
 }); 
+
+
+function previousScore(){
+    let score = JSON.parse(localStorage.getItem('scoreData')); 
+    return score; 
+
+}
 window.requestAnimationFrame(loop);
 Control(head);
-
+console.log(previous);
  
