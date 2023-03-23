@@ -162,6 +162,7 @@ function loop(){
                 localStorage.setItem('scoreData',JSON.stringify(storedScore));
                 gameOverScreenElement.innerHTML = gameOverScreenRender(currentStoredDataScore); 
                 gameOverScreenElement.classList.add('gameOver-show');
+                previous = previousScore();
             }
             
         }
@@ -213,9 +214,11 @@ window.addEventListener('keyup',(e)=>{
          count = 0;
          totalTime = new Timer();
         snakeHead = new Cell(head,init,res);
+        
         window.requestAnimationFrame(loop);
         Control(head);
 
+        console.log(previous);
 
     }else if (e.key == 'Enter' && gameOverScreen == false){
         pause = !pause;
@@ -232,7 +235,8 @@ function previousScore(){
     return score; 
 
 }
+console.log(previous);
 window.requestAnimationFrame(loop);
 Control(head);
-console.log(previous);
+
  
