@@ -316,3 +316,13 @@ body{
 .gameOver-show{
     display: flex;
 }
+
+.score-change{
+    animation: scale-effect .2s ease-in-out forwards; 
+
+}
+
+@keyframes scale-effect {
+    0%,100%{transform: scale(1);}
+   50%{transform: scale(1.7);}
+}

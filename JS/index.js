@@ -90,7 +90,8 @@ function loop(){
         bodylength++;
         food = new Food();
         foodPoz = food.generate();
-
+        document.querySelector('[data-score]').classList.add('score-change'); 
+        setTimeout(()=>{document.querySelector('[data-score]').classList.remove('score-change');}, 200);
 
         for (let i = 0; i < bodyParts.length; i++) {
             const part = bodyParts[i];
