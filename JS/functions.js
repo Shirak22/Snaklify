@@ -40,12 +40,15 @@ function drawFood(foodpos, ctx, res) {
 }
 
 
-function updateScoreUI(score,tailLength,speed){
+function updateScoreUI(score,tailLength,speed,bestScore){
     let scoreDom = document.querySelector('[data-score]');
     let tailDom = document.querySelector('[data-tailLength]');
-    let speedRate = document.querySelector('[data-speedRate]'); 
+    let speedRate = document.querySelector('[data-speedRate]');
+    let bestScoreEl = document.querySelector('[data-bestScore]');
+    
      scoreDom.textContent = score;
      tailDom.textContent = tailLength;
+     bestScoreEl.textContent = bestScore;
      speedRate.textContent = `X`+ (speed/.1).toFixed(1); 
 }
  class Timer {
@@ -121,4 +124,18 @@ return `
 }
 
 
-export {Timer,random,drawFood,updateScoreUI,gameOverScreenRender,pauseScreenRender}
+function getBestScore(){
+    let dataLocalStorage = JSON.parse(localStorage.getItem('scoreData')); 
+    if(dataLocalStorage == null){
+        return 'This is the first game'
+    }else {
+        return Math.max(...dataLocalStorage.map(object => object.score));
+    }
+}
+
+function previousScore(){
+    let score = JSON.parse(localStorage.getItem('scoreData')); 
+    return score; 
+}
+
+export {Timer,random,drawFood,updateScoreUI,gameOverScreenRender,pauseScreenRender,previousScore,getBestScore}

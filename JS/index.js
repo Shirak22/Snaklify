@@ -1,4 +1,4 @@
-import {Timer,drawFood,updateScoreUI,gameOverScreenRender,pauseScreenRender} from './functions.js'
+import {Timer,drawFood,updateScoreUI,gameOverScreenRender,pauseScreenRender,getBestScore,previousScore} from './functions.js'
 import {canvas,ctx,res,init} from './init.js'
 import Control from './controls.js'
 import {Body,Cell} from './snake.js'
@@ -21,7 +21,7 @@ import {Food} from './Food.js'
         score: 0,
     }
 
-    let previous = previousScore();
+let previous = previousScore();
 let snakeHead = new Cell(head,init,res);
 let gameOverScreen = false;
 let pause = false; 
@@ -40,7 +40,7 @@ let badFood = new Food(false);
 let badFoodPoz  = badFood.generate();
 let badFoodTimer = new Timer();
 let timer = new Timer(); 
-
+let bestScore = getBestScore(); 
 
 //the game loop and animation 
 function loop(){
@@ -164,6 +164,7 @@ function loop(){
                 gameOverScreenElement.innerHTML = gameOverScreenRender(currentStoredDataScore); 
                 gameOverScreenElement.classList.add('gameOver-show');
                 previous = previousScore();
+                 bestScore = getBestScore(); 
             }
             
         }
@@ -175,7 +176,7 @@ function loop(){
         gameOverScreen = true;
     }
 
-    updateScoreUI(level.score,bodylength,level.speed);
+    updateScoreUI(level.score,bodylength,level.speed,bestScore);
     drawFood(foodPoz,ctx,res);
     drawFood(badFoodPoz,ctx,res);
     snakeHead.draw();
@@ -218,8 +219,7 @@ window.addEventListener('keyup',(e)=>{
         
         window.requestAnimationFrame(loop);
         Control(head);
-
-        console.log(previous);
+         
 
     }else if (e.key == 'Enter' && gameOverScreen == false){
         pause = !pause;
@@ -231,13 +231,7 @@ window.addEventListener('keyup',(e)=>{
 }); 
 
 
-function previousScore(){
-    let score = JSON.parse(localStorage.getItem('scoreData')); 
-    return score; 
 
-}
-console.log(previous);
 window.requestAnimationFrame(loop);
 Control(head);
 
- 
