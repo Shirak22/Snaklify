@@ -52,7 +52,7 @@ function loop(){
     ctx.strokeRect(0,0,canvas.width,canvas.height);
 
  //Making food every 1 sec 
-    if(badFoodTimer.timeSpent() >= 1){
+    if(badFoodTimer.timeSpent() >= 2){
         badFoodTimer = new Timer();
         badFood = new Food(false); 
         badFoodPoz  = badFood.generate();
@@ -64,13 +64,11 @@ function loop(){
         food = new Food();
         foodPoz = food.generate();
     }
-    
-
    
 
     let speed = 1/level.speed; 
     if(count > speed){ //speed control 
-       
+ 
         //collision detection 
         bodyParts.push(new Body(head.x,head.y, '#FFC188',ctx,res)); 
         //limit the body parts number to the body length , 
@@ -90,8 +88,14 @@ function loop(){
         bodylength++;
         food = new Food();
         foodPoz = food.generate();
+        //applying score change effect 
         document.querySelector('[data-score]').classList.add('score-change'); 
-        setTimeout(()=>{document.querySelector('[data-score]').classList.remove('score-change');}, 200);
+        document.querySelector('[data-tailLength]').classList.add('score-change'); 
+        setTimeout(()=>{
+            document.querySelector('[data-score]').classList.remove('score-change');
+            document.querySelector('[data-tailLength]').classList.remove('score-change');
+    
+    }, 200);
 
         for (let i = 0; i < bodyParts.length; i++) {
             const part = bodyParts[i];
@@ -146,34 +150,18 @@ function loop(){
     bodyParts.forEach(part =>{
         part.draw();
         if(head.x === part.x && head.y === part.y && bodylength >= 10 ){
-            if(head.vx !== 0 || head.vy !== 0){
-                console.log('Body Collision');
-                gameOverScreen = true;
-                
-                let LSstoredScore = localStorage.getItem('scoreData') === null ? []:JSON.parse(localStorage.getItem('scoreData'));
-                let storedScore = [...LSstoredScore];
-                let currentStoredDataScore = {
-                    speed:(level.speed/.1).toFixed(1),
-                    tail:bodylength,
-                    score:level.score,
-                    time:total_time.toString()
-                }; 
-                storedScore.push(currentStoredDataScore); 
-                
-                localStorage.setItem('scoreData',JSON.stringify(storedScore));
-                gameOverScreenElement.innerHTML = gameOverScreenRender(currentStoredDataScore); 
-                gameOverScreenElement.classList.add('gameOver-show');
-                previous = previousScore();
-                 bestScore = getBestScore(); 
-            }
-            
+            console.log('Body Collision');
+            gameOverScreen = true;
+            gameOver(total_time);
         }
      });
      
      //game over on negative score 
     if(level.score  < 0 ){
         level.score = 0;
+        console.log('Body Collision');
         gameOverScreen = true;
+        gameOver(total_time);
     }
 
     updateScoreUI(level.score,bodylength,level.speed,bestScore);
@@ -190,6 +178,28 @@ function loop(){
 }
 }
 
+
+function gameOver(total_time){
+    if(head.vx !== 0 || head.vy !== 0){
+     
+        
+        let LSstoredScore = localStorage.getItem('scoreData') === null ? []:JSON.parse(localStorage.getItem('scoreData'));
+        let storedScore = [...LSstoredScore];
+        let currentStoredDataScore = {
+            speed:(level.speed/.1).toFixed(1),
+            tail:bodylength,
+            score:level.score,
+            time:total_time.toString()
+        }; 
+        storedScore.push(currentStoredDataScore); 
+        
+        localStorage.setItem('scoreData',JSON.stringify(storedScore));
+        gameOverScreenElement.innerHTML = gameOverScreenRender(currentStoredDataScore); 
+        gameOverScreenElement.classList.add('gameOver-show');
+        previous = previousScore();
+        bestScore = getBestScore(); 
+    }
+}
 //Enter key functionality --> Pause and restart on gameoverscreen
 window.addEventListener('keyup',(e)=>{
     e.preventDefault();
@@ -229,7 +239,6 @@ window.addEventListener('keyup',(e)=>{
         
     }
 }); 
-
 
 
 window.requestAnimationFrame(loop);
