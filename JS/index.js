@@ -1,4 +1,4 @@
-import {Timer,drawFood,updateScoreUI,gameOverScreenRender,pauseScreenRender,getBestScore,previousScore} from './functions.js'
+import {Timer,playedGames,drawFood,updateScoreUI,gameOverScreenRender,pauseScreenRender,getBestScore,previousScore} from './functions.js'
 import {canvas,ctx,res,init} from './init.js'
 import Control from './controls.js'
 import {Body,Cell} from './snake.js'
@@ -25,7 +25,7 @@ let previous = previousScore();
 let snakeHead = new Cell(head,init,res);
 let gameOverScreen = false;
 let pause = false; 
-let bodylength = 9; 
+let bodylength = 1; 
 let bodyParts = []; 
 let count = 0;
 let food = new Food(); 
@@ -178,7 +178,7 @@ function loop(){
 }
 }
 
-
+//saving the score and game objects in localStorage and render the best score 
 function gameOver(total_time){
     if(head.vx !== 0 || head.vy !== 0){
      
@@ -233,8 +233,20 @@ window.addEventListener('keyup',(e)=>{
 
     }else if (e.key == 'Enter' && gameOverScreen == false){
         pause = !pause;
-        gameOverScreenElement.innerHTML = pauseScreenRender(level.score); 
+        
+        gameOverScreenElement.innerHTML = pauseScreenRender(level.score);
+        
         gameOverScreenElement.classList.toggle('gameOver-show');
+        playedGames(previous.reverse());
+        window.addEventListener('keyup',(e)=>{
+            if(e.key === 'v'){
+                let historyTable = document.querySelector('.score__table-container'); 
+                let content = document.querySelector('[data-PouseScreencontent]'); 
+                historyTable.classList.toggle('show');
+                content.classList.toggle('hide');
+            }
+            
+        }) ;
         window.requestAnimationFrame(loop); 
         
     }

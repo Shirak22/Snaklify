@@ -103,8 +103,17 @@ function gameOverScreenRender(storedData){
 function pauseScreenRender(score){
 return `
     <div class="gameOverScreen-wrapper">
-                
-                    
+         <div class="score__table-container ">
+            <table data-playedGames class="score__table">
+                <tr>
+                    <th>Game</th>
+                    <th>Score</th>
+                    <th>Tail length</th>
+                    <th>Time spent</th>
+                </tr>
+            </table>
+         </div>       
+        <div data-PouseScreencontent>        
         <article class="gameOverScreen-score">
                 <h3 class="h3-header">SCORE</h3>
                 <h2 class="h2-header">${score}</h2>
@@ -113,11 +122,22 @@ return `
         <article class="gameOverScreen-Headline">
             <h1 class="h1-header">Pause!</h1>
         </article>
-
-        <article class="gameOverScreen-Playagain">
-            <p>Continue! </p>
-            <img src="./Assets/Svg/EnterKey.svg" alt="EnterKey">
+        </div>
+        <article class="flex_container">
+        <article class="gameOverScreen-history gameOverScreen-Playagain ">
+            <p>History Score </p>
+            <p><span><img src="./Assets/Svg/History.svg" alt="History"></span> press <b> V</b>  </p>
+            
         </article>
+            <article class="gameOverScreen-Playagain">
+                <p>Continue! </p>
+                <img src="./Assets/Svg/EnterKey.svg" alt="EnterKey">
+            </article>
+           
+         </article>
+        
+
+
     </div>
 
 `
@@ -134,8 +154,38 @@ function getBestScore(){
 }
 
 function previousScore(){
-    let score = JSON.parse(localStorage.getItem('scoreData')); 
-    return score; 
+    let score = JSON.parse(localStorage.getItem('scoreData'));
+    if(score == null){
+        return [{
+            score:'noData',
+            speed:'noData',
+            tail:'noData',
+            time:'noData'
+        }];
+        
+    }else {
+        return score; 
+    }
+    
 }
 
-export {Timer,random,drawFood,updateScoreUI,gameOverScreenRender,pauseScreenRender,previousScore,getBestScore}
+function playedGames(previous){
+    let games = document.querySelector('[data-playedGames]'); 
+    previous.forEach((game,index) => {
+        games.innerHTML += oneGameScoreUI(game,index + 1);  //+1 to start with 1index
+    });
+}
+
+function oneGameScoreUI(game,index){
+    return `
+        <tr>
+            <td>${index}</td>
+            <td>${game.score}</td>
+            <td>${game.tail}</td>
+            <td>${game.time}s</td>
+            
+        </tr>
+    `; 
+}
+
+export {Timer,random,drawFood,updateScoreUI,gameOverScreenRender,pauseScreenRender,previousScore,getBestScore,playedGames}
