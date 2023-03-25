@@ -169,7 +169,7 @@ function loop(){
     drawFood(badFoodPoz,ctx,res);
     snakeHead.draw();
     count++; 
-    timeEl.textContent = total_time;
+    timeEl.textContent = `${total_time}s`;
     if(!pause){
         
         window.requestAnimationFrame(loop); 
@@ -209,9 +209,9 @@ window.addEventListener('keyup',(e)=>{
         gameOverScreenElement.classList.remove('gameOver-show');
        
         head = {
-            x: init.centerX,
-            y: init.centerY,
-            vx: 0,
+            x: 0,
+            y: 0,
+            vx: 1,
             vy: 0,
             ctx: ctx,
             color: '#FF701F'
