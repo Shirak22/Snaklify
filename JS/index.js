@@ -9,9 +9,9 @@ import {Food} from './Food.js'
  
     let head = {
         x: init.centerX,
-        y:init.centerY,
+        y:init.h * res - res,
         vx:0,
-        vy:0,
+        vy:-1,
         ctx: ctx,
         color:'#FF701F'
     }
@@ -258,9 +258,3 @@ window.addEventListener('keyup',(e)=>{
 
 window.requestAnimationFrame(loop);
 Control(head);
-
-function playMusic(){
-    let audio = new Audio(); 
-    audio.src = 'Assets/sounds/gameMusic.mp3'
-    audio.play();
-}
