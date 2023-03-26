@@ -15,7 +15,6 @@ class Body {
         this.ctx.strokeStyle = '#171F26'; 
         this.ctx.lineWidth = 2; 
         this.ctx.strokeRect(this.x,this.y,this.size,this.size);
-        
     }
 
 }

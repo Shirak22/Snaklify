@@ -204,7 +204,6 @@ function gameOver(total_time){
 window.addEventListener('keyup',(e)=>{
     e.preventDefault();
     if (e.key == 'Enter' && gameOverScreen == true) {
-        console.log(e.keyCode, e.key);
         gameOverScreen = false;
         gameOverScreenElement.classList.remove('gameOver-show');
        

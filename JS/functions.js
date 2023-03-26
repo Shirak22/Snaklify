@@ -114,14 +114,14 @@ return `
             </table>
          </div>       
         <div data-PouseScreencontent>        
-        <article class="gameOverScreen-score">
-                <h3 class="h3-header">SCORE</h3>
-                <h2 class="h2-header">${score}</h2>
-        </article>
+            <article class="gameOverScreen-score">
+                    <h3 class="h3-header">SCORE</h3>
+                    <h2 class="h2-header">${score}</h2>
+            </article>
 
-        <article class="gameOverScreen-Headline">
-            <h1 class="h1-header">Pause!</h1>
-        </article>
+            <article class="gameOverScreen-Headline">
+                <h1 class="h1-header">Pause!</h1>
+            </article>
         </div>
         <article class="flex_container">
         <article class="gameOverScreen-history gameOverScreen-Playagain ">
