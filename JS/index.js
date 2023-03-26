@@ -25,7 +25,7 @@ let previous = previousScore();
 let snakeHead = new Cell(head,init,res);
 let gameOverScreen = false;
 let pause = false; 
-let bodylength = 1; 
+let bodylength = 9; 
 let bodyParts = []; 
 let count = 0;
 let food = new Food(); 
@@ -41,7 +41,6 @@ let badFoodPoz  = badFood.generate();
 let badFoodTimer = new Timer();
 let timer = new Timer(); 
 let bestScore = getBestScore(); 
-
 //the game loop and animation 
 function loop(){
     let total_time = totalTime.timeSpent();
@@ -63,12 +62,13 @@ function loop(){
         timer = new Timer();
         food = new Food();
         foodPoz = food.generate();
+ 
     }
    
 
     let speed = 1/level.speed; 
     if(count > speed){ //speed control 
- 
+       
         //collision detection 
         bodyParts.push(new Body(head.x,head.y, '#FFC188',ctx,res)); 
         //limit the body parts number to the body length , 
@@ -83,11 +83,15 @@ function loop(){
 
     //food and head collision 
     if(head.x === foodPoz.x*res && head.y === foodPoz.y*res ){
+        let eatSound = new Audio();
+        eatSound.src = './Assets/sounds/gameboy-pluck.mp3';
+        eatSound.play();
         level.score += (foodPoz.points - foodPoz.danger);
         timer = new Timer(); 
         bodylength++;
         food = new Food();
         foodPoz = food.generate();
+        
         //applying score change effect 
         document.querySelector('[data-score]').classList.add('score-change'); 
         document.querySelector('[data-tailLength]').classList.add('score-change'); 
@@ -255,4 +259,8 @@ window.addEventListener('keyup',(e)=>{
 window.requestAnimationFrame(loop);
 Control(head);
 
-
+function playMusic(){
+    let audio = new Audio(); 
+    audio.src = 'Assets/sounds/gameMusic.mp3'
+    audio.play();
+}
