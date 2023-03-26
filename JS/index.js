@@ -52,7 +52,7 @@ function loop(){
     ctx.strokeRect(0,0,canvas.width,canvas.height);
 
  //Making food every 1 sec 
-    if(badFoodTimer.timeSpent() >= 2){
+    if(badFoodTimer.timeSpent() >= 3){
         badFoodTimer = new Timer();
         badFood = new Food(false); 
         badFoodPoz  = badFood.generate();
@@ -255,4 +255,5 @@ window.addEventListener('keyup',(e)=>{
 
 window.requestAnimationFrame(loop);
 Control(head);
+
 
