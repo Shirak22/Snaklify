@@ -1,8 +1,8 @@
-@font-face {
+/* @font-face {
     font-family: Coiny;
     src: url('Assets/fonts/Coiny/Coiny-Regular.ttf');
-  }  
-
+  }   */
+  @import url('https://fonts.googleapis.com/css2?family=Coiny&display=swap');
 :root{
     /* colors  */
     --background-primary-color: #141B22; 
