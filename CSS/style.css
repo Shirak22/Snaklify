@@ -79,9 +79,11 @@ body{
 }
 .game__main-platform::before {
     position: absolute ; 
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%,120%);
+    top: 50%;
+    left: 0;
+    margin: -1rem;
+    transform-origin: left;
+    transform:rotate(-90deg) translate(-50%);
     content: '2023 © Snaklify by Shirak Soghomonian';
     color: rgba(255, 255, 255, .1);
 }
@@ -415,7 +417,34 @@ body{
   .show{
     display: flex;
   }
+.footer_nav{
+    width: 100%;
+    position: absolute;
+    bottom:0;
+    left: 0;
+    transform: translate(0,100%);
+}
+.footer_nav ul{
+    list-style: none;
+    display: flex;
+    text-align: center;
+    justify-content: center;
 
+}
+.footer_nav ul li {
+    margin:0 1rem;  
+    font-size: .8rem;
+    margin-top: .2rem;
+}
+.footer_nav ul li a  {
+    font-style: italic;
+    text-decoration: none;
+    color: rgba(255, 255, 255, .2);
+}
+.footer_nav ul li a:hover{
+    color: rgba(255, 255, 255, .7);
+
+}
   ::-webkit-scrollbar {
     width: .3rem;
   }
