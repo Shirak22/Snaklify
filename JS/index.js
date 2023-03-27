@@ -85,6 +85,7 @@ function loop(){
     if(head.x === foodPoz.x*res && head.y === foodPoz.y*res ){
         let eatSound = new Audio();
         eatSound.src = './Assets/sounds/gameboy-pluck.mp3';
+        eatSound.volume = 0.1;
         eatSound.play();
         level.score += (foodPoz.points - foodPoz.danger);
         timer = new Timer(); 
