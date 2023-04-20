@@ -9,6 +9,7 @@
 </head>
 <body>
     <div class="Game_wrapper">
+        <figure class="Controls_info" ><img src="./Assets/Svg/Controls_Info.svg" alt=""></figure>
         <section class="game__main-platform">
             <section  class="game__canvas">
                 <canvas id="game_canvas-id"></canvas>
@@ -19,7 +20,7 @@
                     <h1 class="h1-header">Snaklify</h1>
                     <section class="game__information-header__score">
                         <h3 class="h3-header">SCORE</h3>
-                        <h2 class="h2-header">150236</h2>
+                        <h2 data-score class="h2-header">150236</h2>
                     </section>
                 </article>
                 <!-- the header section  -->
@@ -27,10 +28,8 @@
                 <!-- the level and speed and time  -->
                 <article class="game__information-level">
                     <table>
-                        <tr> <td class="game__information-table__cell">level:</td> <td>1</td></tr>
-                        <tr> <td class="game__information-table__cell">time:</td> <td>2:00</td></tr>
-                        <tr> <td class="game__information-table__cell">speed:</td> <td> x1</td></tr>
-                        <tr> <td class="game__information-table__cell">Goal:</td> <td>15</td></tr>
+                        <tr> <td class="game__information-table__cell">speed:</td> <td data-speedRate> x1</td></tr>
+                        <tr> <td class="game__information-table__cell">Tail:</td> <td data-tailLength>15</td></tr>
                     </table>
                 </article> 
                  <!-- the level and speed and time  -->
@@ -40,36 +39,76 @@
                     <section class="game__information-food__info">
                         <h4 class="game__information-food__info-heading"> Food info</h4>
                         <table>
-                            <tr> <td class="game__information-table__cell"><img src="assets/Food/carrot.png" alt="carrots"><img src="assets/Food/watermelon.png" alt="watermelon"><img src="assets/Food/grapes.png" alt="grapes"></td> <td>+10</td></tr>
-                            <tr > <td class="game__information-table__cell"><img src="assets/Food/blueberries.png" alt="blueberries"></td> <td>+22</td></tr>
-                            <tr> <td class="game__information-table__cell"><img src="assets/Food/olive.png" alt="olive"></td> <td>+53</td></tr>
+                            <tr> <td class="game__information-table__cell"><img src="Assets/Food/carrot.png" alt="carrots"><img src="Assets/Food/watermelon.png" alt="watermelon"><img src="Assets/Food/grapes.png" alt="grapes"></td> <td>+10</td></tr>
+                            <tr > <td class="game__information-table__cell"><img src="Assets/Food/blueberries.png" alt="blueberries"></td> <td>+22</td></tr>
+                            <tr> <td class="game__information-table__cell"><img src="Assets/Food/olive.png" alt="olive"></td> <td>+53</td></tr>
                         </table>
                     </section>
 
                     <section class="game__information-danger">
                         <h4 class="game__information-danger-heading"> Danger</h4>
                         <table>
-                            <tr> <td class="game__information-table__cell"><img src="assets/Poisen/firecracker.png" alt="blueberries"></td> <td>-12</td></tr>
-                            <tr> <td class="game__information-table__cell"><img src="assets/Poisen/bomb.png" alt="blueberries"></td> <td>-25</td></tr>
-                            <tr> <td class="game__information-table__cell"><img src="assets/Poisen/radioactive.png" alt="blueberries"></td> <td>-60</td></tr>
+                            <tr> <td class="game__information-table__cell"><img src="Assets/Poisen/firecracker.png" alt="blueberries"></td> <td>-12</td></tr>
+                            <tr> <td class="game__information-table__cell"><img src="Assets/Poisen/bomb.png" alt="blueberries"></td> <td>-25</td></tr>
+                            <tr> <td class="game__information-table__cell"><img src="Assets/Poisen/radioactive.png" alt="blueberries"></td> <td>-60</td></tr>
                         </table>
                     </section>
+                    
                 </section>
+                
+
                  <!-- the food and danger information  -->
+                 <article class="game__information-level">
+                    <table>
+                        <tr> <td class="game__information-table__cell">Best score:</td> <td data-bestScore>15</td></tr>
+                    </table>
+                 </article>
                  <section class="game__information-total__time">
-                    <p>total time 10:23</p>
+                    <table>
+                        <tr> <td class="game__information-table__cell"><p>total time  </p></td> <td><span data-time>10:23</span></td></tr>
+                    </table>
+                    
                  </section>
 
                  
             </section>
-            
+            <nav class="footer_nav">
+                <ul>
+                    <li><a target="_blank" href="https://github.com/Shirak22/Snaklify/tree/dev">Github</a></li>
+                    <li><a target="_blank" href="https://codepen.io/shirakserop">CodePen</a></li>
+                    <li><a target="_blank" href="https://www.figma.com/file/WR6FQCNiTlnhtoy6vfGJ5K/Snake-Game-2D-retro-design?node-id=0%3A1&t=xjL7DLwA58egzB24-1 ">Figma File</a></li>
+                </ul>
+            </nav>
         </section>
-    </div>
+        <div data-gameOver class="gameOverScreen ">
+           
+            <div class="gameOverScreen-wrapper">
+                <!-- <div class="gameOverScreen-level_info">
+                    <p>speed: <span>X1</span> </p>
+                    <p>Tail length: <span>42</span></p>
+                </div>
+                
+                <article class="gameOverScreen-score">
+                        <h3 class="h3-header">SCORE</h3>
+                        <h2 class="h2-header">150236</h2>
+                        <p>total time <span>10:23</span> </p>
+                </article> -->
+
+                <article class="gameOverScreen-Playagain">
+                    <p>Play again! </p>
+                    <img src="./Assets/Svg/EnterKey.svg" alt="EnterKey">
+                </article>
+            </div>
+        </div>
+
+
+    </div>   <!-- game wrapper  -->
+   
 
 
 
 
-
+    
     <script type="module" src="JS/index.js"></script>
 </body>
 </html>
